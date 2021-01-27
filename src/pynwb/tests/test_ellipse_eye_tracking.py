@@ -67,7 +67,8 @@ class TestEllipseEyeTracking(TestCase):
         likely_blink = TimeSeries(timestamps=[1.0, 5.0, 6.0],
                                   data=[1, 1, 1],
                                   name='likely_blink',
-                                  description='blinks')
+                                  description='blinks',
+                                  unit='N/A')
 
         ellipse_eye_tracking = EllipseEyeTracking(
             eye_tracking=eye_tracking,
