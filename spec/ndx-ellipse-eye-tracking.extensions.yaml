@@ -1,8 +1,42 @@
 groups:
-- neurodata_type_def: TetrodeSeries
-  neurodata_type_inc: ElectricalSeries
-  doc: An extension of ElectricalSeries to include the tetrode ID for each time series.
-  attributes:
-  - name: trode_id
-    dtype: int32
-    doc: The tetrode ID.
+- neurodata_type_def: EllipseSeries
+  neurodata_type_inc: SpatialSeries
+  doc: Information about an ellipse moving over time
+  datasets:
+  - name: area
+    dtype: float
+    shape:
+    - null
+    doc: ellipse area
+  - name: width
+    dtype: float
+    shape:
+    - null
+    doc: width of ellipse
+  - name: height
+    dtype: float
+    shape:
+    - null
+    doc: height of ellipse
+  - name: angle
+    dtype: float
+    shape:
+    - null
+    doc: angle that ellipse is rotated by (phi)
+- neurodata_type_def: EllipseEyeTracking
+  neurodata_type_inc: EyeTracking
+  default_name: EyeTracking
+  doc: Stores detailed eye tracking information output from DeepLabCut
+  groups:
+  - name: eye_tracking
+    neurodata_type_inc: EllipseSeries
+    doc: eye tracking
+  - name: pupil_tracking
+    neurodata_type_inc: EllipseSeries
+    doc: pupil tracking
+  - name: corneal_reflection_tracking
+    neurodata_type_inc: EllipseSeries
+    doc: corneal reflection tracking
+  - name: likely_blink
+    neurodata_type_inc: Events
+    doc: Indicator of whether there was a probable blink for this frame

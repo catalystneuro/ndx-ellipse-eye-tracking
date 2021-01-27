@@ -1,5 +1,6 @@
 import os
 from pynwb import load_namespaces, get_class
+import ndx_events
 
 # Set path of the namespace.yaml file to the expected install location
 ndx_ellipse_eye_tracking_specpath = os.path.join(
@@ -19,8 +20,11 @@ if not os.path.exists(ndx_ellipse_eye_tracking_specpath):
     ))
 
 # Load the namespace
+load_namespaces(ndx_events.ndx_events_specpath)
 load_namespaces(ndx_ellipse_eye_tracking_specpath)
 
 # TODO: import your classes here or define your class using get_class to make
 # them accessible at the package level
-TetrodeSeries = get_class('TetrodeSeries', 'ndx-ellipse-eye-tracking')
+
+EllipseSeries = get_class('EllipseSeries', 'ndx-ellipse-eye-tracking')
+EllipseEyeTracking = get_class('EllipseEyeTracking', 'ndx-ellipse-eye-tracking')

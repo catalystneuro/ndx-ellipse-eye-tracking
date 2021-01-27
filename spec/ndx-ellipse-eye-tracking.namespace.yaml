@@ -8,14 +8,10 @@ namespaces:
   schema:
   - namespace: core
     neurodata_types:
-    - ElectricalSeries
-    - TimeSeries
-    - NWBDataInterface
-    - NWBContainer
-  - namespace: hdmf-common
+    - SpatialSeries
+    - EyeTracking
+  - namespace: ndx-events
     neurodata_types:
-    - DynamicTableRegion
-    - VectorData
-    - Data
+    - Events
   - source: ndx-ellipse-eye-tracking.extensions.yaml
   version: 0.1.0

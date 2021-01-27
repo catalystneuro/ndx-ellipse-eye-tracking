@@ -2,7 +2,7 @@
 
 import os.path
 
-from pynwb.spec import NWBNamespaceBuilder, export_spec, NWBGroupSpec, NWBAttributeSpec
+from pynwb.spec import NWBNamespaceBuilder, export_spec, NWBGroupSpec, NWBAttributeSpec, NWBDatasetSpec
 # TODO: import the following spec classes as needed
 # from pynwb.spec import NWBDatasetSpec, NWBLinkSpec, NWBDtypeSpec, NWBRefSpec
 
@@ -25,33 +25,69 @@ def main():
     # the extension should be included, i.e., the neurodata_type and its parent
     # type and its parent type and so on. this will be addressed in a future
     # release of HDMF.
-    ns_builder.include_type('ElectricalSeries', namespace='core')
-    ns_builder.include_type('TimeSeries', namespace='core')
-    ns_builder.include_type('NWBDataInterface', namespace='core')
-    ns_builder.include_type('NWBContainer', namespace='core')
-    ns_builder.include_type('DynamicTableRegion', namespace='hdmf-common')
-    ns_builder.include_type('VectorData', namespace='hdmf-common')
-    ns_builder.include_type('Data', namespace='hdmf-common')
+    ns_builder.include_type('SpatialSeries', namespace='core')
+    ns_builder.include_type('EyeTracking', namespace='core')
+    ns_builder.include_type('Events', namespace='ndx-events')
 
     # TODO: define your new data types
     # see https://pynwb.readthedocs.io/en/latest/extensions.html#extending-nwb
     # for more information
-    tetrode_series = NWBGroupSpec(
-        neurodata_type_def='TetrodeSeries',
-        neurodata_type_inc='ElectricalSeries',
-        doc=('An extension of ElectricalSeries to include the tetrode ID for '
-             'each time series.'),
-        attributes=[
-            NWBAttributeSpec(
-                name='trode_id',
-                doc='The tetrode ID.',
-                dtype='int32'
+    ellipse_series_spec = NWBGroupSpec(
+        neurodata_type_def='EllipseSeries',
+        neurodata_type_inc='SpatialSeries',
+        doc='Information about an ellipse moving over time',
+        datasets=[
+            NWBDatasetSpec(
+                name='area',
+                dtype='float',
+                doc='ellipse area',
+                shape=(None, )
+            ),
+            NWBDatasetSpec(
+                name='width',
+                dtype='float',
+                doc='width of ellipse',
+                shape=(None, )
+            ),
+            NWBDatasetSpec(
+                name='height',
+                dtype='float',
+                doc='height of ellipse',
+                shape=(None, )
+            ),
+            NWBDatasetSpec(
+                name='angle',
+                dtype='float',
+                doc='angle that ellipse is rotated by (phi)',
+                shape=(None, )
+            )
+        ]
+    )
+
+    ellipse_eye_tracking_spec = NWBGroupSpec(
+        neurodata_type_def='EllipseEyeTracking',
+        neurodata_type_inc='EyeTracking',
+        name=None,
+        default_name='EyeTracking',
+        doc='Stores detailed eye tracking information output from DeepLabCut',
+        groups=[
+            NWBGroupSpec(
+                neurodata_type_inc=ellipse_series_spec,
+                name=x,
+                doc=x.replace('_', ' ')
+            ) for x in ('eye_tracking', 'pupil_tracking', 'corneal_reflection_tracking')
+        ] + [
+            NWBGroupSpec(
+                neurodata_type_inc='Events',
+                name='likely_blink',
+                doc='Indicator of whether there was a probable blink for this frame'
             )
         ],
+
     )
 
     # TODO: add all of your new data types to this list
-    new_data_types = [tetrode_series]
+    new_data_types = [ellipse_series_spec,  ellipse_eye_tracking_spec]
 
     # export the spec to yaml files in the spec folder
     output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'spec'))
