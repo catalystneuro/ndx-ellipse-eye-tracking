@@ -38,6 +38,13 @@ def main():
         doc='Information about an ellipse moving over time',
         datasets=[
             NWBDatasetSpec(
+                name='data',  # override SpatialSeries 'data' dataset to be more explicit
+                dtype='numeric',
+                doc='The (x, y) coordinates of the center of the ellipse at each time point.',
+                dims=('num_times', 'x, y'),
+                shape=(None, 2),
+            ),
+            NWBDatasetSpec(
                 name='area',
                 dtype='float',
                 doc='ellipse area',

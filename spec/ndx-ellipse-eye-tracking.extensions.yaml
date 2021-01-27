@@ -3,6 +3,15 @@ groups:
   neurodata_type_inc: SpatialSeries
   doc: Information about an ellipse moving over time
   datasets:
+  - name: data
+    dtype: numeric
+    dims:
+    - num_times
+    - x, y
+    shape:
+    - null
+    - 2
+    doc: The (x, y) coordinates of the center of the ellipse at each time point.
   - name: area
     dtype: float
     shape:
