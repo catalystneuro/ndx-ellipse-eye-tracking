@@ -5,7 +5,7 @@ from pynwb import NWBHDF5IO, NWBFile
 from pynwb.testing import TestCase, remove_test_file
 
 from ndx_ellipse_eye_tracking import EllipseEyeTracking, EllipseSeries
-from ndx_events import Events
+from pynwb import TimeSeries
 
 
 def set_up_nwbfile():
@@ -64,8 +64,10 @@ class TestEllipseEyeTracking(TestCase):
             timestamps=eye_tracking
         )
 
-        likely_blink = Events(timestamps=[1.0, 5.0, 6.0], name='likely_blink',
-                              description='blinks')
+        likely_blink = TimeSeries(timestamps=[1.0, 5.0, 6.0],
+                                  data=[1, 1, 1],
+                                  name='likely_blink',
+                                  description='blinks')
 
         ellipse_eye_tracking = EllipseEyeTracking(
             eye_tracking=eye_tracking,

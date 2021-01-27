@@ -38,5 +38,5 @@ groups:
     neurodata_type_inc: EllipseSeries
     doc: corneal reflection tracking
   - name: likely_blink
-    neurodata_type_inc: Events
+    neurodata_type_inc: TimeSeries
     doc: Indicator of whether there was a probable blink for this frame

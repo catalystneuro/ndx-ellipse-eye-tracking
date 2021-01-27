@@ -2,7 +2,7 @@
 
 import os.path
 
-from pynwb.spec import NWBNamespaceBuilder, export_spec, NWBGroupSpec, NWBAttributeSpec, NWBDatasetSpec
+from pynwb.spec import NWBNamespaceBuilder, export_spec, NWBGroupSpec, NWBDatasetSpec
 # TODO: import the following spec classes as needed
 # from pynwb.spec import NWBDatasetSpec, NWBLinkSpec, NWBDtypeSpec, NWBRefSpec
 
@@ -27,7 +27,7 @@ def main():
     # release of HDMF.
     ns_builder.include_type('SpatialSeries', namespace='core')
     ns_builder.include_type('EyeTracking', namespace='core')
-    ns_builder.include_type('Events', namespace='ndx-events')
+    ns_builder.include_type('TimeSeries', namespace='core')
 
     # TODO: define your new data types
     # see https://pynwb.readthedocs.io/en/latest/extensions.html#extending-nwb
@@ -78,7 +78,7 @@ def main():
             ) for x in ('eye_tracking', 'pupil_tracking', 'corneal_reflection_tracking')
         ] + [
             NWBGroupSpec(
-                neurodata_type_inc='Events',
+                neurodata_type_inc='TimeSeries',
                 name='likely_blink',
                 doc='Indicator of whether there was a probable blink for this frame'
             )
