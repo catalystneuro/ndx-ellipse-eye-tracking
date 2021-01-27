@@ -1,0 +1,21 @@
+namespaces:
+- author:
+  - Ben Dichter
+  contact:
+  - bdichter@lbl.gov
+  doc: Store the elliptical eye tracking output of DeepLabCut
+  name: ndx-ellipse-eye-tracking
+  schema:
+  - namespace: core
+    neurodata_types:
+    - ElectricalSeries
+    - TimeSeries
+    - NWBDataInterface
+    - NWBContainer
+  - namespace: hdmf-common
+    neurodata_types:
+    - DynamicTableRegion
+    - VectorData
+    - Data
+  - source: ndx-ellipse-eye-tracking.extensions.yaml
+  version: 0.1.0
