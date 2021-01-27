@@ -43,7 +43,7 @@ class TestEllipseEyeTracking(TestCase):
         )
 
         pupil_tracking = EllipseSeries(
-            name='eye_tracking',
+            name='pupil_tracking',
             data=np.ones((100, 2)),
             reference_frame='nose',
             area=np.ones((100, )),
@@ -54,7 +54,7 @@ class TestEllipseEyeTracking(TestCase):
         )
 
         corneal_reflection_tracking = EllipseSeries(
-            name='eye_tracking',
+            name='corneal_reflection_tracking',
             data=np.ones((100, 2)),
             reference_frame='nose',
             area=np.ones((100, )),
@@ -86,4 +86,4 @@ class TestEllipseEyeTracking(TestCase):
 
         with NWBHDF5IO(self.path, mode='r', load_namespaces=True) as io:
             read_nwbfile = io.read()
-            self.assertContainerEqual(ellipse_eye_tracking, read_nwbfile.acquisition['EllipseEyeTracking'])
+            self.assertContainerEqual(ellipse_eye_tracking, read_nwbfile.acquisition['EyeTracking'])
